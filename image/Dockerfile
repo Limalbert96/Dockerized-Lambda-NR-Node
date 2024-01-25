@@ -9,8 +9,7 @@ COPY --from=Extension /opt/ .
 COPY src/index.mjs ${LAMBDA_TASK_ROOT}
 COPY package*.json ${LAMBDA_TASK_ROOT}
 
-RUN cd /var/task && npm install
+RUN cd /var/task && npm install 
 
-WORKDIR /opt
 # Set the CMD to your handler.
 CMD [ "index.handler" ]
