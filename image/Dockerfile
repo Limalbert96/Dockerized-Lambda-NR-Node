@@ -6,10 +6,10 @@ FROM public.ecr.aws/lambda/nodejs:18
 WORKDIR /opt
 COPY --from=Extension /opt/ .
 
-COPY src/index.mjs ${LAMBDA_TASK_ROOT}
-COPY package*.json ${LAMBDA_TASK_ROOT}
+WORKDIR /var/task
+COPY src/index.mjs package.json ./
 
-RUN cd /var/task && npm install 
+RUN  npm install 
 
 # Set the CMD to your handler.
 CMD [ "index.handler" ]
