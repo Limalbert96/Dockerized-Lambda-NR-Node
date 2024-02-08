@@ -21,46 +21,54 @@ const table_name = process.env.TABLE_NAME;
 
 const lambdaHandler = async (event, context) => {
     let body;
-    let statusCode = 200;
     
     const user = event.user;
     let visit_count = 0;
     
-    try {
-        const params = {
+    // Check if user exists
+    try{
+        const checkUser = new GetCommand({
             TableName: table_name,
             Key: {
                 user: user
             }
-        };
-        
-        body = await dynamodb.send(new GetCommand(params));
+        });
+    
+        body = await dynamodb.send(checkUser);
+
+        // If user exists use the existing visit_count value from the table
         if (body.Item) {
             visit_count = body.Item.visit_count;
         }
+        
         visit_count++;
         
-        const putParams = {
+        // Update the user visitation count
+        const updateUser = new PutCommand({
             TableName: table_name,
             Item: {
                 user: user,
                 visit_count: visit_count
             }
-        };
-
-        body = await dynamodb.send(new PutCommand(putParams));
-    
+        });
+        
+        body = await dynamodb.send(updateUser);
+        
+        // Return message to the console
         const message = `Hello ${user}! You have visited us ${visit_count} times.`;
         console.log(message);
-        return {
-            message: message
-        };
+        return message;
     
-    }catch (err) {
-        statusCode = 400;
-        body = err.message;
-    } finally {
-        body = JSON.stringify(body);
+    }catch (e) {
+        console.error(e);
+        console.info("ALIM: " + body);
+        // if table key input does not match, then throw the error message to the console 
+        if (body == undefined) {
+          throw e; 
+        }
+        return e;
+    }finally {
+        console.log("EVENT: " + JSON.stringify(body));
     }
 };
 
