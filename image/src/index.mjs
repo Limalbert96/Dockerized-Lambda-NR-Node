@@ -1,10 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
-  ScanCommand,
   PutCommand,
-  GetCommand,
-  DeleteCommand,
+  GetCommand
 } from "@aws-sdk/lib-dynamodb";
 
 import { Tracer, captureLambdaHandler } from '@aws-lambda-powertools/tracer';
@@ -61,7 +59,6 @@ const lambdaHandler = async (event, context) => {
     
     }catch (e) {
         console.error(e);
-        console.info("ALIM: " + body);
         // if table key input does not match, then throw the error message to the console 
         if (body == undefined) {
           throw e; 
