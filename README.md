@@ -27,12 +27,11 @@ Run`brew install --cask docker` to install Docker Desktop
 Go to the [Dockerfile](./image/Dockerfile) file & update the [New Relic base image](./image/Dockerfile#L2)
 <br> List of the base image can be found at [https://gallery.ecr.aws/x6n7b2o2?page=1](https://gallery.ecr.aws/x6n7b2o2?page=1)
 
-> [!TIP] 
-> If you are building your own project, make sure to include the same [code snippet](./image/Dockerfile#L5-L15) within the Dockerfile and update the file as needed. You can verify the location of the New Relic extension locally by running the following command in your terminal.
-
 > [!CAUTION]
 > Your `index.mjs` and `package.json` must be placed in `WORKDIR /var/task`. By default Node.js does not search the folders in the NODE_PATH environment variable when importing ES modules. This makes it difficult to import ES modules from folders outside of the /var/task/ folder in which the function code is deployed. Read more on [this discussion](https://github.com/aws/aws-sdk-js/discussions/4432).
 
+> [!TIP] 
+> If you are building your own project, make sure to include the same [code snippet](./image/Dockerfile#L5-L15) within the Dockerfile and update the file as needed. You can verify the location of the New Relic extension locally by running the following command in your terminal.
 > ```
 > cd image
 > docker build -t docker-image:test .
@@ -50,10 +49,9 @@ Go to the [docker-node-lambda-aws-stack.ts](./lib/docker-node-lambda-aws-stack.t
 * NEW_RELIC_LICENSE_KEY : `<NEW_RELIC_LICENSE_KEY>`
 * NEW_RELIC_LOG_ENDPOINT : `<NR_LOG_END_POINT>`
 * NEW_RELIC_TELEMETRY_ENDPOINT : `<NR_TELEMETRY_END_POINT>`
-* NEW_RELIC_USE_ESM: "true"
 
 > [!CAUTION]
-> `NEW_RELIC_USE_ESM: "true"` must be set in the environment variable for extension to work. Read more on [Support for ES Modules (Node.js)](https://github.com/newrelic/newrelic-lambda-layers?tab=readme-ov-file#support-for-es-modules-nodejs). Otherwise, you might see `"Error: Cannot find module 'newrelic-lambda-wrapper'\nRequire stack:\n- /var/runtime/index.mjs"`.
+> `NEW_RELIC_USE_ESM: true` must be set in the environment variable for extension to work. Read more on [Support for ES Modules (Node.js)](https://github.com/newrelic/newrelic-lambda-layers?tab=readme-ov-file#support-for-es-modules-nodejs). Otherwise, you might see `"Error: Cannot find module 'newrelic-lambda-wrapper'\nRequire stack:\n- /var/runtime/index.mjs"`.
 
 NEW_RELIC_TELEMETRY_ENDPOINT
 * Production : https://cloud-collector.newrelic.com/aws/lambda/v1
