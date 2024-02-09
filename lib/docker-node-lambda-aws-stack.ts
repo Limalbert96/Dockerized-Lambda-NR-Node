@@ -49,7 +49,7 @@ export class DockerNodeLambdaAwsStack extends cdk.Stack {
         NEW_RELIC_ACCOUNT_ID : "<NEW_RELIC_ACCOUNT_ID>",
         NEW_RELIC_EXTENSION_SEND_FUNCTION_LOGS : "true",
         NEW_RELIC_LAMBDA_EXTENSION_ENABLED : "true",
-        NEW_RELIC_LAMBDA_HANDLER : "main.handler",
+        NEW_RELIC_LAMBDA_HANDLER : "index.handler",
         NEW_RELIC_LICENSE_KEY : "<NEW_RELIC_LICENSE_KEY>",
         NEW_RELIC_LOG_ENDPOINT : "https://log-api.newrelic.com/log/v1" ,
         NEW_RELIC_TELEMETRY_ENDPOINT : "https://cloud-collector.newrelic.com/aws/lambda/v1",
