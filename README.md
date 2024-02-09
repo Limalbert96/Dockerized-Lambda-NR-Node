@@ -49,6 +49,7 @@ Go to the [docker-node-lambda-aws-stack.ts](./lib/docker-node-lambda-aws-stack.t
 * NEW_RELIC_LICENSE_KEY : `<NEW_RELIC_LICENSE_KEY>`
 * NEW_RELIC_LOG_ENDPOINT : `<NR_LOG_END_POINT>`
 * NEW_RELIC_TELEMETRY_ENDPOINT : `<NR_TELEMETRY_END_POINT>`
+* NEW_RELIC_USE_ESM : `true`
 
 > [!CAUTION]
 > `NEW_RELIC_USE_ESM: true` must be set in the environment variable for extension to work. Read more on [Support for ES Modules (Node.js)](https://github.com/newrelic/newrelic-lambda-layers?tab=readme-ov-file#support-for-es-modules-nodejs). Otherwise, you might see `"Error: Cannot find module 'newrelic-lambda-wrapper'\nRequire stack:\n- /var/runtime/index.mjs"`.
